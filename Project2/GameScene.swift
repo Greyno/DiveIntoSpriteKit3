@@ -174,6 +174,9 @@ class GameScene: SKScene {
     }
     
     func createLevel(){
+        //Whenever a new level starts, reset the timer clock
+        startTime = 0
+        
         //Show 4 more balls for every level of difficulty (max is 96 balls or level 24)
         var numberOfBallsToShow = level * 4
         numberOfBallsToShow = min(numberOfBallsToShow, 96)
