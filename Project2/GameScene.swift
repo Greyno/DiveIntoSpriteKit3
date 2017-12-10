@@ -13,7 +13,18 @@ import SpriteKit
 class GameScene: SKScene {
     
     var level = 1 //Track the difficulty levl of the game
-   
+    var startTime = 0.0
+    var timeLabel = SKLabelNode(fontNamed: "Optima-ExtraBlack")
+    var isGameRunning = true
+    
+    let music = SKAudioNode(fileNamed: "night-cave")
+    let scoreLabel = SKLabelNode(fontNamed: "Optima-ExtraBlack")
+    //Create a property observer for the score
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     
     override func didMove(to view: SKView) {
         // this method is called when your game scene is ready to run
@@ -22,6 +33,20 @@ class GameScene: SKScene {
         background.zPosition = -1
         background.name = "background"
         addChild(background)
+        
+        scoreLabel.position = CGPoint(x: -480, y: 330)
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.zPosition = 1
+        score = 0
+        
+        timeLabel.position = CGPoint(x:480, y: 330)
+        timeLabel.horizontalAlignmentMode = .right
+        timeLabel.zPosition = 1
+        
+        //Add the score label, time label and music as children of the background node, not as children of the root gamescene
+        background.addChild(scoreLabel)
+        background.addChild(music)
+        background.addChild(timeLabel)
         createGrid()
         createLevel()
     }
@@ -29,7 +54,7 @@ class GameScene: SKScene {
     //MARK: Game Play
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // this method is called when the user touches the screen
-        
+        guard isGameRunning else { return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         let tappedNodes = nodes(at: location) //returns [SKNode]
@@ -41,6 +66,9 @@ class GameScene: SKScene {
     }
     
     func correctAnswer(node: SKNode) {
+        isUserInteractionEnabled = false
+        score += 1
+        run(SKAction.playSoundFileNamed("correct-3", waitForCompletion: false))
         //When the correct ball is chosen, fade out the incorrect balls
         let fade = SKAction.fadeOut(withDuration: 0.5) //Create and configure the action
 
@@ -65,6 +93,8 @@ class GameScene: SKScene {
     }
     
     func wrongAnswer(node: SKNode) {
+        score -= 1
+        run(SKAction.playSoundFileNamed("wrong-3", waitForCompletion: false))
         let wrong = SKSpriteNode(imageNamed: "wrong")
         let locationForX = node.position
         wrong.position = locationForX
@@ -79,6 +109,7 @@ class GameScene: SKScene {
                 self.level = 1
             }
             self.createLevel()
+            wrong.removeFromParent() //This prevents having a larger ball left behind on reshuffle
         }
     }
     
@@ -88,6 +119,43 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // this method is called before each frame is rendered
+        
+        //If the game is running, show the time label, otherwise do not show the label
+        if isGameRunning {
+            if startTime == 0 {
+                startTime = currentTime
+            }
+            let timePassed = currentTime - startTime
+            let remainingTime = Int(ceil(10 - timePassed))
+            
+            if remainingTime <= 5 {
+                timeLabel.color = UIColor.red
+            }
+            
+            timeLabel.text = "TIME: \(remainingTime)"
+            timeLabel.alpha = 1
+            
+            //Start a new game when time runs out
+            if remainingTime <= 0 {
+                isGameRunning = false
+                
+                let gameOver = SKSpriteNode(imageNamed:"gameOver1")
+                gameOver.zPosition = 100
+                addChild(gameOver)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    //Create a new scene from GameScence.sks
+                    if let scene = GameScene(fileNamed: "GameScene") {
+                        //make it stretch to fill all available space
+                        scene.scaleMode = .aspectFill
+                        //present it immediately
+                        self.view?.presentScene(scene)
+                    }
+                })
+            }
+        } else {
+            timeLabel.alpha = 0
+        }
     }
     
     //MARK: Helper Methods
@@ -108,6 +176,9 @@ class GameScene: SKScene {
     func createLevel(){
         //Show 4 more balls for every level of difficulty (max is 96 balls or level 24)
         var numberOfBallsToShow = level * 4
+        numberOfBallsToShow = min(numberOfBallsToShow, 96)
+        
+        isUserInteractionEnabled = true
         let shuffledBalls = generateShuffledBalls()
         generateGuessingGrid(shuffledBalls: shuffledBalls, ballsPerLevel: numberOfBallsToShow)
     }

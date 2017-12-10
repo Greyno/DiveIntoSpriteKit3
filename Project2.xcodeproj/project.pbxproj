@@ -14,6 +14,10 @@
 		51C6E4C91F951D59001794D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51C6E4C71F951D59001794D5 /* Main.storyboard */; };
 		51C6E4CB1F951D59001794D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51C6E4CA1F951D59001794D5 /* Assets.xcassets */; };
 		51C6E4CE1F951D59001794D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51C6E4CC1F951D59001794D5 /* LaunchScreen.storyboard */; };
+		6D1DA8511FD8CB5600570EA1 /* correct-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6D1DA8501FD8CB5600570EA1 /* correct-3.wav */; };
+		6D1DA8531FD8CC4C00570EA1 /* night-cave.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6D1DA8521FD8CC4C00570EA1 /* night-cave.mp3 */; };
+		6D1DA8551FD8CD1C00570EA1 /* wrong-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6D1DA8541FD8CD1C00570EA1 /* wrong-3.wav */; };
+		6D1DA8571FDAEC6700570EA1 /* gameOver1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1DA8561FDAEC6700570EA1 /* gameOver1@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		51C6E4CA1F951D59001794D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51C6E4CD1F951D59001794D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51C6E4CF1F951D59001794D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D1DA8501FD8CB5600570EA1 /* correct-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "correct-3.wav"; sourceTree = "<group>"; };
+		6D1DA8521FD8CC4C00570EA1 /* night-cave.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "night-cave.mp3"; sourceTree = "<group>"; };
+		6D1DA8541FD8CD1C00570EA1 /* wrong-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wrong-3.wav"; sourceTree = "<group>"; };
+		6D1DA8561FDAEC6700570EA1 /* gameOver1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameOver1@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +52,10 @@
 			children = (
 				51C6E4BC1F951D59001794D5 /* Project2 */,
 				51C6E4BB1F951D59001794D5 /* Products */,
+				6D1DA8501FD8CB5600570EA1 /* correct-3.wav */,
+				6D1DA8521FD8CC4C00570EA1 /* night-cave.mp3 */,
+				6D1DA8541FD8CD1C00570EA1 /* wrong-3.wav */,
+				6D1DA8561FDAEC6700570EA1 /* gameOver1@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,8 +141,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D1DA8531FD8CC4C00570EA1 /* night-cave.mp3 in Resources */,
 				51C6E4C91F951D59001794D5 /* Main.storyboard in Resources */,
 				51C6E4C01F951D59001794D5 /* GameScene.sks in Resources */,
+				6D1DA8511FD8CB5600570EA1 /* correct-3.wav in Resources */,
+				6D1DA8571FDAEC6700570EA1 /* gameOver1@2x.png in Resources */,
+				6D1DA8551FD8CD1C00570EA1 /* wrong-3.wav in Resources */,
 				51C6E4CB1F951D59001794D5 /* Assets.xcassets in Resources */,
 				51C6E4CE1F951D59001794D5 /* LaunchScreen.storyboard in Resources */,
 			);
